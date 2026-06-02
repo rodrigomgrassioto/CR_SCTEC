@@ -19,6 +19,7 @@ export class PokeApiService {
 
             // Trata o erro quando o Pokémon não existir (HTTP 404) ou qualquer outra falha
             if (!resposta.ok) {
+                console.log("[ERRO] Pokémon não encontrado.");
                 return null;
             }
 
@@ -36,7 +37,7 @@ export class PokeApiService {
 
             return pokemonFormatado;
         } catch (error) {
-            // Retorna null para qualquer erro de rede ou falha inesperada
+            console.log("[ERRO] Não foi possível buscar o Pokémon.");
             return null;
         }
     }

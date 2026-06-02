@@ -18,8 +18,8 @@ async function rodarTeste() {
 
     if (pokemon) {
         console.log("Sucesso! Retorno mapeado:", pokemon);
-    } else {
-        console.log("Pokémon não encontrado.");
+    // } else {
+    //     console.log("Pokémon não encontrado.");
     }
 }
 
