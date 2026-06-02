@@ -12,7 +12,7 @@ export class PokeApiService {
         const termoBusca = nomeOuId.toLowerCase().trim();
 
         // url disponível na pág 5
-        const url = `https://pokeapi.co/api/v2/pokemon/{termoBusca}`;
+        const url = `https://pokeapi.co/api/v2/pokemon/${termoBusca}`;
 
         try {
             const resposta = await fetch(url);
