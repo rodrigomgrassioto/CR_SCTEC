@@ -19,3 +19,21 @@ export interface PokemonApiResponse {
         };
     }[];
 }
+
+// visto na aula do dia 02/06/2026
+export class Pokemon implements PokemonResumo {
+    id: number;
+    nome: string;
+    tipos: string[];
+    altura: number;
+    peso: number;
+
+    constructor(apiData: PokemonApiResponse) {
+        this.id = apiData.id;
+        // Primeira letra maiúscula
+        this.nome = apiData.name.charAt(0).toUpperCase() + apiData.name.slice(1);
+        this.tipos = apiData.types.map(t => t.type.name);
+        this.altura = apiData.height;
+        this.peso = apiData.weight;
+    }
+}
