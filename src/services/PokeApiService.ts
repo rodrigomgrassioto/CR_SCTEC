@@ -26,13 +26,13 @@ export class PokeApiService {
             // Captura os dados brutos tipados de acordo com o contrato da API
             const dadosBrutos: PokemonApiResponse = await resposta.json();
 
-            // Mapeia e transforma os dados brutos para o formato resumido exigido pelo projeto
+            // Mapeia e transforma os dados brutos para o formato resumido exigido pelo projeto RF06
             const pokemonFormatado: PokemonResumo = {
                 id: dadosBrutos.id,
                 nome: dadosBrutos.name,
-                tipos: dadosBrutos.types.map(info => info.type.name),
                 altura: dadosBrutos.height,
-                peso: dadosBrutos.weight
+                peso: dadosBrutos.weight,
+                tipos: dadosBrutos.types.map(info => info.type.name)
             };
 
             return pokemonFormatado;
