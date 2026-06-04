@@ -19,14 +19,14 @@ import { TerminalController } from './controllers/TerminalController.js'
 
 async function main() {
     // Instancia os serviços
-    // const apiService = new PokeApiService();
+    const apiService = new PokeApiService();
     // const boxService = new BoxService();
 
     // Injeta as dependências no controlador da interface
-    const controller = new TerminalController(apiService, boxService);
+    const controller = new TerminalController(apiService);
 
     // Inicia o loop do menu
-    await controller.iniciar();
+    await controller.iniciarMenu();
 }
 
 main();
