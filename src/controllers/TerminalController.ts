@@ -35,7 +35,7 @@ export class TerminalController {
 
             const opcao = await this.perguntar('Escolha uma opção: ');
 
-            switch (opcao) {
+            switch (opcao.toLowerCase()) {
                 case '1':
                     console.log('\n[Adicionando novo Pokémon]');
                     this.buscarPokemonNaApiAddCatalogo();
@@ -60,7 +60,6 @@ export class TerminalController {
                     }
                     break;
 
-                case 'S':
                 case 's':
                     console.log('Saindo do programa... Até mais!');
                     continuar = false;
