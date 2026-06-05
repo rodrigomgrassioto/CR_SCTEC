@@ -61,6 +61,7 @@ export class TerminalController {
                         continuar = true;
                     } else {
                         console.table(this.boxService.obterCatalogo());
+                        continuar = true;
                     }
                     break;
 
@@ -85,6 +86,7 @@ export class TerminalController {
 
         if (!termo.trim()) {
             console.log('❌ Entrada não pode ser vazia!');
+            this.iniciarMenu()
             return;
         }
         console.log(`Buscando "${termo}" na PokéAPI...`);
