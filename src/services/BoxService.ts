@@ -37,4 +37,10 @@ export class BoxService {
         this.catalogo.push(pokemon);
         return true;
     }
+
+    removerPorId(id: number): boolean {
+        const index = this.catalogo.findIndex(p => p.id === id);
+        console.log(`index é: ${index}`);
+        return false
+    }
 }

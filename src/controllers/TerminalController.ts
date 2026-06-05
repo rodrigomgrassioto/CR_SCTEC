@@ -61,7 +61,8 @@ export class TerminalController {
                         continuar = true;
                     } else {
                         console.table(this.boxService.obterCatalogo());
-                        continuar = true;
+                        continuar = false;
+                        this.subMenuRemoverPorId()
                     }
                     break;
 
@@ -101,6 +102,26 @@ export class TerminalController {
         console.log('✅ Pokémon adicionado ao catálogo');
         this.iniciarMenu()
         return;
+
+    }
+
+    private async subMenuRemoverPorId(): Promise<void> {
+        console.log('\n 🟦 --- REMOVER POKÉMON --- 🟦');
+        const termo = await this.perguntar('❓ ID a remover: ');
+        if (!termo.trim()) {
+            console.log('❌ Entrada não pode ser vazia!');
+            this.iniciarMenu();
+            return;
+        }
+
+        const termoNumber = +termo.trim();
+        if (isNaN(termoNumber)) {
+            console.log('❌ O ID precisa ser um número válido!');
+            this.iniciarMenu();
+            return;
+        }
+        const retornoRemocao = await this.boxService.removerPorId(termoNumber);
+        console.log(retornoRemocao)
 
     }
 
