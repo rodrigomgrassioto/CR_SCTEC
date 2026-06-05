@@ -1,15 +1,13 @@
 import * as readline from "readline";
-import {PokeApiService} from "../services/PokeApiService.js";
-import {Pokemon, type PokemonResumo} from "../models/Pokemon.js";
+import {BoxService} from "../services/BoxService.js";
+
+// import {Pokemon, type PokemonResumo} from "../models/Pokemon.js";
 
 export class TerminalController {
     private rl: readline.Interface;
-    private catalogo: PokemonResumo[] = [
-        // {id: 25, 'nome': 'pikachu', altura: 4, peso: 60, tipos: ['electric']}
-    ];
 
     constructor(
-        private apiService: PokeApiService
+        private boxService: BoxService,
     ){
         this.rl = readline.createInterface({
             input: process.stdin,
@@ -47,10 +45,10 @@ export class TerminalController {
 
                 case '2':
                     console.log('\n[Seu Catálogo Atual]');
-                    if (this.catalogo.length === 0) {
+                    if (this.boxService.obterCatalogo().length === 0) {
                         console.log('O catálogo está vazio.');
                     } else {
-                        console.table(this.catalogo);
+                        console.table(this.boxService.obterCatalogo());
                     }
                     break;
 
@@ -58,11 +56,11 @@ export class TerminalController {
                     continuar = false
                     console.clear()
                     console.log('\n 🟦 R E M O V E R !!! 🟦');
-                    if (this.catalogo.length === 0) {
+                    if (this.boxService.obterCatalogo().length === 0) {
                         console.log('❌ O catálogo está vazio.');
                         continuar = true;
                     } else {
-                        console.table(this.catalogo);
+                        console.table(this.boxService.obterCatalogo());
                     }
                     break;
 
@@ -90,7 +88,7 @@ export class TerminalController {
             return;
         }
         console.log(`Buscando "${termo}" na PokéAPI...`);
-        const retApi = await this.buscarPokemonNaApiAddCatalogo(termo);
+        const retApi = await this.boxService.buscarPokemonNaApiAddCatalogo(termo);
         if (!retApi) {
             // console.clear();
             console.log('❌ Erro ao consultar Pokémon, verifique o ID/Nome');
@@ -102,20 +100,6 @@ export class TerminalController {
         this.iniciarMenu()
         return;
 
-    }
-
-    private async buscarPokemonNaApiAddCatalogo(termo: string): Promise<boolean> {
-        // console.log(`Buscando o Pokémon pelo ID/Nome ${termo}...`);
-        const pokemon: PokemonResumo|null = await this.apiService.buscarPokemon(termo.toLowerCase().trim());
-
-        // console.log(pokemon)
-
-        if (!pokemon) {
-            // console.log('poke não encontrado')
-            return false
-        }
-        this.catalogo.push(pokemon);
-        return true;
     }
 
 // Executa o menu

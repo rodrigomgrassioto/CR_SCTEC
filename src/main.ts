@@ -16,17 +16,17 @@ import { PokeApiService } from "./services/PokeApiService.js";
 // rodarTeste();
 
 import { TerminalController } from './controllers/TerminalController.js'
+import {BoxService} from "./services/BoxService.js";
 
 async function main() {
     // Instancia os serviços
     const apiService = new PokeApiService();
-    // const boxService = new BoxService();
+    const boxService = new BoxService(apiService);
+    const terminalController = new TerminalController(boxService);
 
-    // Injeta as dependências no controlador da interface
-    const controller = new TerminalController(apiService);
 
     // Inicia o loop do menu
-    await controller.iniciarMenu();
+    await terminalController.iniciarMenu();
 }
 
 main();
