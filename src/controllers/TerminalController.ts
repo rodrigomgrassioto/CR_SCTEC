@@ -1,6 +1,6 @@
 import * as readline from "readline";
 import {PokeApiService} from "../services/PokeApiService.js";
-import type {PokemonResumo} from "../models/Pokemon.js";
+import {Pokemon, type PokemonResumo} from "../models/Pokemon.js";
 
 export class TerminalController {
     private rl: readline.Interface;
@@ -38,7 +38,8 @@ export class TerminalController {
             switch (opcao.toLowerCase()) {
                 case '1':
                     console.log('\n[Adicionando novo Pokémon]');
-                    this.buscarPokemonNaApiAddCatalogo();
+                    // this.buscarPokemonNaApiAddCatalogo();
+                    this.subMenuAdicionar();
                     // console.log('adicionado com sucesso!');
                     break;
 
@@ -73,19 +74,29 @@ export class TerminalController {
         }
     }
 
-    private async buscarPokemonNaApiAddCatalogo(): Promise<void> {
-        console.log("Buscando o Pokémon Pikachu...");
-        const pokemon = await this.apiService.buscarPokemon("27");
+    private async subMenuAdicionar(): Promise<void> {
+        console.log('\n--- ADICIONAR POKÉMON ---');
+        const termo = await this.perguntar('Digite o Nome ou ID: ');
 
-        if (pokemon) {
-            this.catalogo.push(pokemon);
-            console.log("Sucesso! Pokémon Adicionando. 😄");
-            // } else {
-            //     console.log("Pokémon não encontrado.");
+        if (!termo.trim()) {
+            console.log('❌ Entrada não pode ser vazia!');
+            return;
         }
-        // console.log('Pokémons consultados');
-        // console.log(pokemon)
+        console.log(`Buscando "${termo}" na PokéAPI...`);
+        const retApi = this.buscarPokemonNaApiAddCatalogo(termo);
+        console.log(`O retorno da api é: ${retApi}`)
 
+    }
+
+    private async buscarPokemonNaApiAddCatalogo(termo: string): Promise<boolean> {
+        console.log(`Buscando o Pokémon pelo ID/Nome ${termo}...`);
+        const pokemon: PokemonResumo|null = await this.apiService.buscarPokemon(termo.toLowerCase().trim());
+
+        if (!pokemon) {
+            console.log('poke não encontrado')
+            return false
+        }
+        return true;
     }
 
 // Executa o menu
