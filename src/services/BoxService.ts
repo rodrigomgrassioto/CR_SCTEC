@@ -1,4 +1,4 @@
-import {PokeApiService} from "../services/PokeApiService.js";
+import {PokeApiService} from "./PokeApiService.js";
 import { Pokemon, type PokemonResumo } from "../models/Pokemon.js";
 
 export class BoxService {
@@ -22,6 +22,16 @@ export class BoxService {
 
         if (!pokemon) {
             // console.log('poke não encontrado')
+            return false
+        }
+        // console.log('pokemon.id')
+        // console.log(pokemon.id)
+        // console.log('this.catalogo.id')
+        // console.log()
+        // RF 08 - Regra obrigatória - Pág 9
+        if (this.catalogo.some(p => p.id == pokemon.id)) {
+            console.clear()
+            console.log('☢️  Pokemon já cadastrado!')
             return false
         }
         this.catalogo.push(pokemon);
