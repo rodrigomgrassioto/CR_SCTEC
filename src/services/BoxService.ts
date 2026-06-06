@@ -5,12 +5,14 @@ import { Pokemon, type PokemonResumo } from "../models/Pokemon.js";
 export class BoxService {
     constructor(
         private apiService: PokeApiService
-    ) {    }
+    ) {
+        this.carregarJson();
+    }
 
     private catalogo: PokemonResumo[] = [
         // {id: 25, 'nome': 'pikachu', altura: 4, peso: 60, tipos: ['electric']}
     ];
-    private readonly caminhoArquivo = "../../pc_box.json";
+    private readonly caminhoArquivo = "./pc_box.json";
 
     obterCatalogo(): PokemonResumo[] {
         return this.catalogo;
@@ -61,9 +63,35 @@ export class BoxService {
         return true;
     }
 
-    salvarCatalogo (): boolean {
-        const result = fs.writeFile(this.caminhoArquivo, JSON.stringify(this.catalogo, null, 2), "utf-8");
-        console.log(result);
+    async salvarJson () :Promise<boolean> {
+        const result = await fs.writeFile(this.caminhoArquivo, JSON.stringify(this.catalogo, null, 2), "utf-8");
+        console.log(result); // retorna undefined mesmo em caso de sucesso
         return true
     }
+
+    async carregarJson(): Promise<void> {
+        try {
+            const conteudo = await fs.readFile(this.caminhoArquivo, "utf-8");
+            const conteudoLimpo = conteudo.trim();
+
+            // Se o arquivo estiver em branco
+            if (conteudoLimpo === "") {
+                this.catalogo = [];
+                return;
+            }
+            this.catalogo = JSON.parse(conteudoLimpo);
+
+        } catch (error: any) {
+            // Se o arquivo nem sequer existir, inicializa vazio tranquilamente
+            if (error.code === 'ENOENT') {
+                this.catalogo = [];
+                return;
+            }
+
+            // Captura apenas erros reais (como um JSON corrompido ex: "[{id: 1,")
+            console.error("❌ Arquivo corrompido ou inválido. Iniciando catálogo vazio. Erro:", error.message);
+            this.catalogo = [];
+        }
+    }
+
 }

@@ -67,12 +67,12 @@ export class TerminalController {
                     }
                     break;
                 case '4':
-                    if (!this.boxService.salvarCatalogo()) {
+                    if (!await this.boxService.salvarJson()) {
                         console.log('❌ Erro ao salvar o catálogo.');
-                        return
+                        break;
                     }
                     console.log('✅ Catálogo salvo');
-                    return
+                    break
 
 
                 case 's':

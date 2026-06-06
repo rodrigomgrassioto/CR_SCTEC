@@ -37,7 +37,7 @@ export class PokeApiService {
 
             return pokemonFormatado;
         } catch (error) {
-            console.log("[ERRO] Não foi possível buscar o Pokémon.");
+            console.log("❌ Não foi possível buscar o Pokémon.");
             return null;
         }
     }
