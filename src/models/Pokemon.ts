@@ -32,7 +32,7 @@ export class Pokemon implements PokemonResumo {
         this.id = apiData.id;
         // Primeira letra maiúscula
         this.nome = apiData.name.charAt(0).toUpperCase() + apiData.name.slice(1);
-        this.tipos = apiData.types.map(t => t.type.name);
+        this.tipos = apiData.types.map(t => t.type.name); // RF11
         this.altura = apiData.height;
         this.peso = apiData.weight;
     }

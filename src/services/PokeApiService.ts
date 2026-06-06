@@ -32,7 +32,7 @@ export class PokeApiService {
                 nome: dadosBrutos.name,
                 altura: dadosBrutos.height,
                 peso: dadosBrutos.weight,
-                tipos: dadosBrutos.types.map(info => info.type.name)
+                tipos: dadosBrutos.types.map(info => info.type.name) //RF11
             };
 
             return pokemonFormatado;

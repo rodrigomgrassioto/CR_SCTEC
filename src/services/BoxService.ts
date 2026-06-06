@@ -29,7 +29,7 @@ export class BoxService {
         // console.log('this.catalogo.id')
         // console.log()
         // RF 08 - Regra obrigatória - Pág 9
-        if (this.catalogo.some(p => p.id == pokemon.id)) {
+        if (this.catalogo.some(p => p.id == pokemon.id)) { // RF11
             console.clear()
             console.log('☢️  Pokemon já cadastrado!')
             return false
@@ -39,13 +39,21 @@ export class BoxService {
     }
 
     removerPorId(id: number): boolean {
-        const index = this.catalogo.findIndex(p => p.id === id);
+        // const index = this.catalogo.findIndex(p => p.id === id); // RF11??
         // console.log(`index é: ${index}`);
 
-        if (index === -1) {
-            console.log('☢️  ID não encontrado!')
+        // if (index === -1) {
+        //     console.log('☢️  ID não encontrado!')
+        //     return false;
+        // }
+
+        // atualizado código para atender a RF11
+        const pokemon = this.catalogo.find(p => p.id === id); // RF11
+        if (!pokemon) {
+            console.log('☢️  ID não encontrado!');
             return false;
         }
+        const index = this.catalogo.indexOf(pokemon);
 
         this.catalogo.splice(index, 1);
         return true;
