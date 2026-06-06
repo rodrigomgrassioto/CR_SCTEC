@@ -1,8 +1,6 @@
 import * as readline from "readline";
 import {BoxService} from "../services/BoxService.js";
 
-// import {Pokemon, type PokemonResumo} from "../models/Pokemon.js";
-
 export class TerminalController {
     private rl: readline.Interface;
 
@@ -38,10 +36,7 @@ export class TerminalController {
                 case '1':
                     continuar = false;
                     console.clear()
-                    // console.log('\n[Adicionando novo Pokémon]');
-                    // this.buscarPokemonNaApiAddCatalogo();
                     this.subMenuAdicionar();
-                    // console.log('adicionado com sucesso!');
                     break;
 
                 case '2':
@@ -102,12 +97,10 @@ export class TerminalController {
         console.log(`Buscando "${termo}" na PokéAPI...`);
         const retApi = await this.boxService.buscarPokemonNaApiAddCatalogo(termo);
         if (!retApi) {
-            // console.clear();
             console.log('❌ Erro ao consultar Pokémon, verifique o ID/Nome');
             this.iniciarMenu()
             return;
         }
-        // console.clear();
         console.log('✅ Pokémon adicionado ao catálogo');
         this.iniciarMenu()
         return;
@@ -130,7 +123,6 @@ export class TerminalController {
             return;
         }
         const retornoRemocao = await this.boxService.removerPorId(termoNumber);
-        // console.log(retornoRemocao)
         if (! retornoRemocao) {
             this.iniciarMenu()
             return
@@ -141,7 +133,4 @@ export class TerminalController {
         return
 
     }
-
-// Executa o menu
-//     iniciarMenu();
 }

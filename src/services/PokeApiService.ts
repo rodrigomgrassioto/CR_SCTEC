@@ -1,4 +1,3 @@
-// src/services/PokeApiService.ts
 import type { PokemonApiResponse, PokemonResumo } from "../models/Pokemon.js";
 
 export class PokeApiService {

@@ -9,9 +9,7 @@ export class BoxService {
         this.carregarJson();
     }
 
-    private catalogo: PokemonResumo[] = [
-        // {id: 25, 'nome': 'pikachu', altura: 4, peso: 60, tipos: ['electric']}
-    ];
+    private catalogo: PokemonResumo[] = [];
     private readonly caminhoArquivo = "./pc_box.json";
 
     obterCatalogo(): PokemonResumo[] {
@@ -19,19 +17,10 @@ export class BoxService {
     }
 
     async buscarPokemonNaApiAddCatalogo(termo: string): Promise<boolean> {
-        // console.log(`Buscando o Pokémon pelo ID/Nome ${termo}...`);
         const pokemon: PokemonResumo|null = await this.apiService.buscarPokemon(termo.toLowerCase().trim());
 
-        // console.log(pokemon)
+        if (!pokemon) return false
 
-        if (!pokemon) {
-            // console.log('poke não encontrado')
-            return false
-        }
-        // console.log('pokemon.id')
-        // console.log(pokemon.id)
-        // console.log('this.catalogo.id')
-        // console.log()
         // RF 08 - Regra obrigatória - Pág 9
         if (this.catalogo.some(p => p.id == pokemon.id)) { // RF11
             // console.clear() // removido para tender a RF13 no main.ts
