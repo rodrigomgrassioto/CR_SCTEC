@@ -34,8 +34,8 @@ export class BoxService {
         // console.log()
         // RF 08 - Regra obrigatória - Pág 9
         if (this.catalogo.some(p => p.id == pokemon.id)) { // RF11
-            console.clear()
-            console.log('☢️  Pokemon já cadastrado!')
+            // console.clear() // removido para tender a RF13 no main.ts
+            console.log(`☢️  Pokemon ID/Nome "${termo}" já cadastrado!`)
             return false
         }
         this.catalogo.push(pokemon);

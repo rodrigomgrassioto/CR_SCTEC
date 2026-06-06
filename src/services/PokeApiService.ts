@@ -19,7 +19,7 @@ export class PokeApiService {
 
             // Trata o erro quando o Pokémon não existir (HTTP 404) ou qualquer outra falha
             if (!resposta.ok) {
-                console.log("[ERRO] Pokémon não encontrado.");
+                console.log(`❌  ID/Nome '${termoBusca}' não encontrado.`);
                 return null;
             }
 
