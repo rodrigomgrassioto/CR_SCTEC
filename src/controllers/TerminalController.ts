@@ -121,7 +121,15 @@ export class TerminalController {
             return;
         }
         const retornoRemocao = await this.boxService.removerPorId(termoNumber);
-        console.log(retornoRemocao)
+        // console.log(retornoRemocao)
+        if (! retornoRemocao) {
+            this.iniciarMenu()
+            return
+        }
+        console.clear()
+        console.log('✅ Pokémon removido do catálogo');
+        this.iniciarMenu()
+        return
 
     }
 

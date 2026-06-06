@@ -40,7 +40,14 @@ export class BoxService {
 
     removerPorId(id: number): boolean {
         const index = this.catalogo.findIndex(p => p.id === id);
-        console.log(`index é: ${index}`);
-        return false
+        // console.log(`index é: ${index}`);
+
+        if (index === -1) {
+            console.log('☢️  ID não encontrado!')
+            return false;
+        }
+
+        this.catalogo.splice(index, 1);
+        return true;
     }
 }
