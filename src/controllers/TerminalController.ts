@@ -29,6 +29,7 @@ export class TerminalController {
             console.log('1. Adicionar Pokémon');
             console.log('2. Listar Pokémons');
             console.log('3. Remover Pokémons');
+            console.log('4. Salvar Pokémons');
             console.log('S. Sair');
 
             const opcao = await this.perguntar('Escolha uma opção: ');
@@ -65,6 +66,14 @@ export class TerminalController {
                         this.subMenuRemoverPorId()
                     }
                     break;
+                case '4':
+                    if (!this.boxService.salvarCatalogo()) {
+                        console.log('❌ Erro ao salvar o catálogo.');
+                        return
+                    }
+                    console.log('✅ Catálogo salvo');
+                    return
+
 
                 case 's':
                     console.clear()

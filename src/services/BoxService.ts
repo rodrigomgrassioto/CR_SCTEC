@@ -1,4 +1,5 @@
 import {PokeApiService} from "./PokeApiService.js";
+import * as fs from "node:fs/promises";
 import { Pokemon, type PokemonResumo } from "../models/Pokemon.js";
 
 export class BoxService {
@@ -9,6 +10,7 @@ export class BoxService {
     private catalogo: PokemonResumo[] = [
         // {id: 25, 'nome': 'pikachu', altura: 4, peso: 60, tipos: ['electric']}
     ];
+    private readonly caminhoArquivo = "../../pc_box.json";
 
     obterCatalogo(): PokemonResumo[] {
         return this.catalogo;
@@ -57,5 +59,11 @@ export class BoxService {
 
         this.catalogo.splice(index, 1);
         return true;
+    }
+
+    salvarCatalogo (): boolean {
+        const result = fs.writeFile(this.caminhoArquivo, JSON.stringify(this.catalogo, null, 2), "utf-8");
+        console.log(result);
+        return true
     }
 }
