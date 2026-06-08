@@ -1,15 +1,5 @@
 [
   {
-    "id": 123,
-    "nome": "scyther",
-    "altura": 15,
-    "peso": 560,
-    "tipos": [
-      "bug",
-      "flying"
-    ]
-  },
-  {
     "id": 1025,
     "nome": "pecharunt",
     "altura": 3,
