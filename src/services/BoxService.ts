@@ -54,7 +54,6 @@ export class BoxService {
 
     async salvarJson () :Promise<boolean> {
         const result = await fs.writeFile(this.caminhoArquivo, JSON.stringify(this.catalogo, null, 2), "utf-8");
-        console.log(result); // retorna undefined mesmo em caso de sucesso
         return true
     }
 
