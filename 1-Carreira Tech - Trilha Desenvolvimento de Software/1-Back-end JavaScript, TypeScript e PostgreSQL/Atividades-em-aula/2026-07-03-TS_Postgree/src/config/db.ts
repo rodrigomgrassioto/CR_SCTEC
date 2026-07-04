@@ -7,6 +7,6 @@ export const pool: Pool = new Pool({
     password: process.env.PG_PASSWORD,
     database: process.env.PG_DATABASE,
     max: 10, // máximo de conexões
-    idleTimeoutMillis: 30000,
+    idleTimeoutMillis: Number(process.env.PG_TIME_OUT_MS),
 });
 pool.on('error', err => console.log(err));
