@@ -1,0 +1,17 @@
+{
+  "name": "2026-07-03-TS_Postgree",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "pg": "^8.22.0"
+  },
+  "devDependencies": {
+    "@types/pg": "^8.20.0",
+    "typescript": "^5.5.3"
+  },
+  "private": true
+}
