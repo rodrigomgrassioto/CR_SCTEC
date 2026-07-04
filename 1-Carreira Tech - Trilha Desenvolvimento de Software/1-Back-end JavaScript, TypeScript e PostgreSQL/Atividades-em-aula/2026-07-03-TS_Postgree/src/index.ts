@@ -1,8 +1,13 @@
 import { pool} from './config/db';
+import {bucarTodosAlunos, buscarAlunoPorEmail, criarAluno} from './repositories/alunoRepository'
 
     // console.log("pool");
     // console.log(pool);
-testarConexao();
+
+// console.log( bucarTodosAlunos());
+// console.log( buscarAlunoPorEmail('rodrigo@rodrigo.com'));
+console.log(criarAluno('Carla', 'Carla', 'ing'))
+// testarConexao();
 async function testarConexao() {
     try {
         const resultado = await pool.query('SELECT NOW();');
