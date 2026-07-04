@@ -1,9 +1,12 @@
 import {Pool} from "pg";
 
 export const pool: Pool = new Pool({
-    host: process.env.PGHOST,
-    port: Number(process.env.PGPORT) || 5432,
-    user: process.env.PGUSER,
-    password: process.env.PGPASSWORD,
-    database: process.env.PGDATABASE
-})
+    host: process.env.PG_HOST,
+    port: Number(process.env.PG_PORT) || 5432,
+    user: process.env.PG_USER,
+    password: process.env.PG_PASSWORD,
+    database: process.env.PG_DATABASE,
+    max: 10, // máximo de conexões
+    idleTimeoutMillis: 30000,
+});
+pool.on('error', err => console.log(err));
