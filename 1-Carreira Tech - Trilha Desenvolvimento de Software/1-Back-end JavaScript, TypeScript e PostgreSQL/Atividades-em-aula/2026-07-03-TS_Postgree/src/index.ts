@@ -5,8 +5,8 @@ import {bucarTodosAlunos, buscarAlunoPorEmail, criarAluno} from './repositories/
     // console.log(pool);
 
 // console.log( bucarTodosAlunos());
-// console.log( buscarAlunoPorEmail('rodrigo@rodrigo.com'));
-console.log(criarAluno('Carla', 'Carla', 'ing'))
+console.log( buscarViaEmail() );
+// console.log(criarAluno('Carla', 'Carla', 'ing'))
 // testarConexao();
 async function testarConexao() {
     try {
@@ -20,6 +20,12 @@ async function testarConexao() {
         // Fecha o pool para o Node não ficar "preso" rodando no terminal
         await pool.end();
     }
+}
+async function buscarViaEmail(){
+    const result = await buscarAlunoPorEmail('rodrigo@rodrigo.com')
+    console.log('📅 Data e Hora do Banco:', result);
+
+    return result;
 }
 
 
