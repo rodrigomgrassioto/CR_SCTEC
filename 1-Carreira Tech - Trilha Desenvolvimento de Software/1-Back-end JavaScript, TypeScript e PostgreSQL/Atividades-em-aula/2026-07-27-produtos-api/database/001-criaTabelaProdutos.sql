@@ -1,0 +1,8 @@
+CREATE TABLE produtos(
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(150) NOT NULL UNIQUE,
+    preco NUMERIC(10,2) NOT NULL CHECK(preco > 0),
+    estoque NUMERIC(10) DEFAULT 0,
+    ativo BOOLEAN DEFAULT TRUE,
+    criado_em TIMESTAMPTZ DEFAULT NOW()
+)
