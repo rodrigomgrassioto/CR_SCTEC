@@ -1,8 +1,11 @@
 ###
+// @no-log # desativa salvar arquico
 GET http://localhost:3000/api/v1/produtos
 ###
+// @no-log # desativa salvar arquico
 GET http://localhost:3000/api/v1/produtos/3
 ###
+// @no-log # desativa salvar arquico
 GET http://localhost:3000/health-check
 
 
