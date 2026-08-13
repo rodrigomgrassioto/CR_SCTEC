@@ -8,7 +8,7 @@ export class ProdutoRepository implements IProdutoRepository {
 
     async findAll(): Promise<Produto[]>{
         const {rows} = await this.db.query<Produto>(
-            'SELECT * FROM produtos WHERE ativo = true ORDER BY name',
+            'SELECT * FROM produtos WHERE ativo = true ORDER BY nome',
         )
         return rows
     }
