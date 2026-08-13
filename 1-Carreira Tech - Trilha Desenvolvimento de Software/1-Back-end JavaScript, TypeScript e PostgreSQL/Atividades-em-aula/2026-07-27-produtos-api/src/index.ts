@@ -3,6 +3,7 @@ import router from "./routes/produtoRotes";
 import {ProdutoRepository} from "./repositories/ProdutoRepository";
 import {CreateProdutoDto} from "./types/produto.types";
 import {pool} from './config/database'
+import {errorHandle} from "./middlewares/errorHandle";
 
 
 const app: Express = express();
@@ -25,6 +26,10 @@ app.get("/health-check", (req: Request, res: Response) => {
 
 // rota desconhecida - 404
 app.use((_: unknown, res: Response) => res.status(404).json({error: 'Rota não encontrada'}))
+
+
+// middleware de tratamento de erros (deve ser o último middleware)
+app.use(errorHandle)
 
 // test
 // const item: CreateProdutoDto ={

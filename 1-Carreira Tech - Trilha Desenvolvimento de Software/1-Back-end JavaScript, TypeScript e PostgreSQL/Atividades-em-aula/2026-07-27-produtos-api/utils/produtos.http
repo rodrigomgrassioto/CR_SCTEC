@@ -4,7 +4,7 @@ GET http://localhost:3000/api/v1/produtos
 Accept: application/json
 ###
 // @no-log # desativa salvar arquico
-GET http://localhost:3000/api/v1/produtos/1
+GET http://localhost:3000/api/v1/produtos/e
 ###
 // @no-log # desativa salvar arquico
 GET localhost:3000/health-check
@@ -35,4 +35,4 @@ Accept: application/json
 
 ###
 // @no-log # desativa salvar arquico
-DELETE localhost:3000/api/v1/produtos/3
+DELETE localhost:3000/api/v1/produtos/99
