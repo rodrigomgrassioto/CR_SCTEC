@@ -2,7 +2,7 @@ import {Produto, CreateProdutoDto, UpdateProdutoDto} from "../types/produto.type
 
 export interface IProdutoRepository {
     findAll(): Promise<Produto[]>;
-    findById(id: number): Promise<Produto | null>;
+    findById(id: number): Promise<Produto>;
     create(dto: CreateProdutoDto): Promise<Produto>;
     update(id: number, dto: UpdateProdutoDto): Promise<Produto | null>;
     delete(id: number): Promise<void>;
