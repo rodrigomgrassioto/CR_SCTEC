@@ -36,7 +36,5 @@ export class ProdutoService {
     async remover(id: number): Promise<void>{
         await this.repo.findById(id);
         await this.repo.delete(id);
-
     }
-
-    }
+}

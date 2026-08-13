@@ -60,10 +60,7 @@ export class ProdutoRepository implements IProdutoRepository {
             // retorna como estava o produto antes de ser excluído
             // possibilitando fazer  if (rows.length === 0) e return rows
             // `-- DELETE FROM produtos WHERE id = $1 RETURNING *`,
-            `-- DELETE FROM produtos WHERE id = $1`,[id]
+            `DELETE FROM produtos WHERE id = $1`,[id]
         )
-
-
-
     }
 }
