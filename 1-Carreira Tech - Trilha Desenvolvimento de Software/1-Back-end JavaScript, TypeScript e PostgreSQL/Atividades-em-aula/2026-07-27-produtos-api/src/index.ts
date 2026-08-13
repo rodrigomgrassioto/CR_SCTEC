@@ -23,6 +23,9 @@ app.get("/health-check", (req: Request, res: Response) => {
     });
 })
 
+// rota desconhecida - 404
+app.use((_: unknown, res: Response) => res.status(404).json({error: 'Rota não encontrada'}))
+
 // test
 // const item: CreateProdutoDto ={
 //     nome: 'Teclado Mecânico',

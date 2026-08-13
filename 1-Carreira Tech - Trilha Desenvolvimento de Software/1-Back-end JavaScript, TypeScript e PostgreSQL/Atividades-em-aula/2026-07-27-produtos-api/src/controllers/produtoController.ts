@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { ProdutoService } from "../services/produtoService";
 import { Produto, CreateProdutoDto, UpdateProdutoDto } from "../types/produto.types";
 
-type IdParam = { id: string }
+export type IdParam = { id: string }
 
 export class ProdutoController {
     constructor(private service: ProdutoService) {}
