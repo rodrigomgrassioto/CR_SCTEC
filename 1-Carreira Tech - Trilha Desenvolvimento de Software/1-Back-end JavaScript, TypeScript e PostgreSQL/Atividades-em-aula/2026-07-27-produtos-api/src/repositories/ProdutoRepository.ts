@@ -13,11 +13,14 @@ export class ProdutoRepository implements IProdutoRepository {
         return rows
     }
 
-    async findById(id: number): Promise<Produto | null> {
+    async findById(id: number): Promise<Produto> {
         const { rows } = await this.db.query<Produto>(
             'SELECT * FROM produtos WHERE id = $1',[id]
         )
-        return rows[0] ?? null;
+        if (!rows[0]) {
+            throw new Error('Falha ao buscar produto');
+        }
+        return rows[0];
     }
 
     async findByNome(nome: string): Promise<Produto | null> {
