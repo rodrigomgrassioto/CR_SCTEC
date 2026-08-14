@@ -7,14 +7,22 @@ export class ProdutoService {
 
     constructor(private repo: ProdutoRepository) {}
 
-    async listarTodos(): Promise<Produto[]>{
-        return this.repo.findAll()
+    async listarTodos(filtros?: {nome: string} ): Promise<Produto[]>{
+        let produtos: Produto[] | null;
+        if(filtros?.nome) {
+            produtos = await this.repo.findByNomeParcial(filtros.nome);
+        } else {
+            produtos = await this.repo.findAll();
+        }
+        if (!produtos || produtos.length === 0) throw new AppError("Sem produtos para exibir");
+        return produtos;
     }
     async buscarPorId(id:number): Promise<Produto | null>{
         const produto = this.repo.findById(id)
         if(!produto) throw new AppError("Produto não encontrado", 404);
         return produto;
     }
+
     async criar(dto: CreateProdutoDto): Promise<Produto>{
         // Regra de negócio 1: Preço deve ser maior que zero
         if (dto.preco <= 0) throw new AppError("Preço deve ser maior que zero", 400)

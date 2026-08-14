@@ -4,7 +4,11 @@ GET http://localhost:3000/api/v1/produtos
 Accept: application/json
 ###
 // @no-log # desativa salvar arquico
-GET http://localhost:3000/api/v1/produtos/e
+GET http://localhost:3000/api/v1/produtos?nome=mec
+Accept: application/json
+###
+// @no-log # desativa salvar arquico
+GET http://localhost:3000/api/v1/produtos/1
 ###
 // @no-log # desativa salvar arquico
 GET localhost:3000/health-check

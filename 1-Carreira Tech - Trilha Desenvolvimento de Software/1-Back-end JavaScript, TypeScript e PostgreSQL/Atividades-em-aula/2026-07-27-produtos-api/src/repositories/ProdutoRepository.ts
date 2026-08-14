@@ -6,7 +6,7 @@ import {Pool} from "pg";
 export class ProdutoRepository implements IProdutoRepository {
     constructor(private db:Pool) { }
 
-    async findAll(): Promise<Produto[]>{
+    async findAll(): Promise<Produto[] | null>{
         const {rows} = await this.db.query<Produto>(
             'SELECT * FROM produtos WHERE ativo = true ORDER BY nome',
         )
@@ -23,11 +23,18 @@ export class ProdutoRepository implements IProdutoRepository {
         return rows[0];
     }
 
-    async findByNome(nome: string): Promise<Produto | null> {
+    async findByNome(nome: string): Promise<Produto[] | null> {
         const { rows } = await this.db.query<Produto>(
             'SELECT * FROM produtos WHERE nome ILIKE $1',[nome]
         )
-        return rows[0] ?? null;
+        return rows ?? null;
+    }
+
+    async findByNomeParcial(nome: string): Promise<Produto[] | null> {
+        const { rows } = await this.db.query<Produto>(
+            'SELECT * FROM produtos WHERE nome ILIKE $1 AND ativo = true ORDER BY nome',[`%${nome}%`]
+        )
+        return rows ?? null;
     }
 
     async create(dto: CreateProdutoDto): Promise<Produto>{

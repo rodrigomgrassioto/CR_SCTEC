@@ -8,9 +8,9 @@ export class ProdutoController {
     constructor(private service: ProdutoService) {}
 
     // GET /api/v1/produtos
-    async listar(req: Request, res:Response, next:NextFunction): Promise<void> {
+    async listar(req: Request<{},{},{},{nome?: string}>, res:Response, next:NextFunction): Promise<void> {
         try {
-            const produtos: Produto[] = await this.service.listarTodos();
+            const produtos: Produto[] = await this.service.listarTodos(req.query.nome ? {nome: req.query.nome} : undefined );
             res.json(produtos);
 
         } catch (err){
