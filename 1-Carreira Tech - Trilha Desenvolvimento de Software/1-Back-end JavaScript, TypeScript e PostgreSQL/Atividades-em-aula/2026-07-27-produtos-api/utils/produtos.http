@@ -19,7 +19,7 @@ Content-Type: application/json
 Accept: application/json
 
 {
-  "nome": "Notebook 14'",
+  "nome": "Notebook 21'",
   "preco": 3999.98,
   "estoque": 4
 }

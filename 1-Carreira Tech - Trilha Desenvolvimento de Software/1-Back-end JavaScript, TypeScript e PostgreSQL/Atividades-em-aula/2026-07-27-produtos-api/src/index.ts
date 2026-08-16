@@ -4,6 +4,7 @@ import {ProdutoRepository} from "./repositories/ProdutoRepository";
 import {CreateProdutoDto} from "./types/produto.types";
 import {pool} from './config/database'
 import {errorHandle} from "./middlewares/errorHandle";
+import {loggerMiddleware, requireJson, timeOut} from "./middlewares/utilsMiddleware";
 
 
 const app: Express = express();
@@ -13,8 +14,14 @@ const PORT = process.env.SYSTEM_PORT || 3002;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Middlewares específicos
+app.use(loggerMiddleware)
+app.use(requireJson)
+app.use(timeOut)
+
 //Rotas
 app.use('/api/v1/produtos', router);
+app.use('/api/v1/categorias', router);
 
 // rota de health-check
 app.get("/health-check", (req: Request, res: Response) => {
