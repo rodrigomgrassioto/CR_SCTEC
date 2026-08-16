@@ -29,7 +29,7 @@ export class ProdutoService {
 
         // Regra de negócio 2: Nome deve ser único
         const existe = await this.repo.findByNome(dto.nome);
-        if (existe) throw new AppError(`Já existe produto com o nome "${dto.nome}"`, 409);
+        if (existe && existe.length > 0) throw new AppError(`Já existe produto com o nome "${dto.nome}"`, 409);
 
         return this.repo.create(dto);
     }
