@@ -1,9 +1,11 @@
 import "reflect-metadata"
 import express from "express";
 import {AppDataSource} from "./database/data-source";
+import ProductRoutes from "./routes/productRoutes";
 
 const app = express();
 app.use(express.json())
+app.use(ProductRoutes)
 
 AppDataSource.initialize()
     .then(() => {
