@@ -16,5 +16,8 @@ productRoutes.get(
     '/products/:id',
     (req, res) => productController.findOne(req, res)
 )
-
+productRoutes.put(
+    '/products/:id',
+    (req, res) => productController.update(req, res)
+)
 export default productRoutes;

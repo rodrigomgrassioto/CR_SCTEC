@@ -21,3 +21,13 @@ Accept: application/json
 GET http://localhost:3000/products/2
 Content-Type: application/json
 Accept: application/json
+
+###
+
+PUT http://localhost:3000/products/2
+Content-Type: application/json
+Accept: application/json
+
+{
+  "preco": 0.01
+}
