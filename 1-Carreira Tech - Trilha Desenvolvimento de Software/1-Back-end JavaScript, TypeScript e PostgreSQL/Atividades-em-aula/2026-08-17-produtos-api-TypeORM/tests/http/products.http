@@ -1,0 +1,13 @@
+### GET request to example server
+POST http://localhost:3000/products
+Content-Type: application/json
+Accept: application/json
+
+{
+  "nome": "Cadeira gamer",
+  "descricao": "Super confortável com espuma D21",
+  "preco": 849,
+  "estoque": 8
+}
+
+###
