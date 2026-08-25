@@ -1,28 +1,32 @@
+//@no-log
 POST http://localhost:3000/products
 Content-Type: application/json
 Accept: application/json
 
 {
-  "nome": "Cadeira gamer PARA DELETAR",
+  "nome": "Cadeira gamer 3",
   "descricao": "Super confortável com espuma D21",
-  "preco": 849,
-  "estoque": 8
+  "preco": 349,
+  "estoque": 90
 }
 
 ###
 
+//@no-log
 GET http://localhost:3000/products
 Content-Type: application/json
 Accept: application/json
 
 ###
 
+//@no-log
 GET http://localhost:3000/products/2
 Content-Type: application/json
 Accept: application/json
 
 ###
 
+//@no-log
 PUT http://localhost:3000/products/2
 Content-Type: application/json
 Accept: application/json
@@ -33,12 +37,14 @@ Accept: application/json
 
 ###
 
+//@no-log
 DELETE http://localhost:3000/products/7
 Content-Type: application/json
 Accept: application/json
 
 ###
 
+//@no-log
 POST http://localhost:3000/products/find-by-name
 Content-Type: application/json
 Accept: application/json
@@ -49,18 +55,21 @@ Accept: application/json
 
 ###
 
+//@no-log
 GET http://localhost:3000/products/stock/available
 Content-Type: application/json
 Accept: application/json
 
 ###
 
+//@no-log
 GET http://localhost:3000/products/stock/empty
 Content-Type: application/json
 Accept: application/json
 
 ###
 
+//@no-log
 GET http://localhost:3000/products/filter?minPrice=900&maxPrice=2500
 Content-Type: application/json
 Accept: application/json
