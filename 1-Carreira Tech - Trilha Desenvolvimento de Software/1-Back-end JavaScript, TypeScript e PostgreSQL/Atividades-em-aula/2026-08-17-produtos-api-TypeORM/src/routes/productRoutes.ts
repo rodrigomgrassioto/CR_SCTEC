@@ -16,6 +16,22 @@ productRoutes.post(
     '/products/find-by-name',
     (req, res) => productController.findOneByNane(req, res)
 )
+
+productRoutes.get(
+    '/products/stock/available',
+    (req, res) => productController.productsStockAvailable (req, res)
+)
+
+productRoutes.get(
+    '/products/stock/empty',
+    (req, res) => productController.productsStockEmpty(req, res)
+)
+
+productRoutes.get(
+    '/products/filter',
+    (req, res) => productController.productsFilter(req, res)
+)
+
 productRoutes.get(
     '/products/:id',
     (req, res) => productController.findOne(req, res)

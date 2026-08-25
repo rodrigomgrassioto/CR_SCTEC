@@ -1,7 +1,7 @@
 import {Request, Response} from "express";
 import {AppDataSource} from "../database/data-source";
 import {Product} from "../entities/Product";
-import {ILike, Like} from "typeorm";
+import {Between, ILike, LessThan, Like, MoreThan} from "typeorm";
 
 export class ProdutoController {
     async create(req: Request, res: Response): Promise<Response> {
@@ -77,6 +77,81 @@ export class ProdutoController {
 
         if (!products || products.length === 0) {
             return res.status(404).json({message: `Produto não encontrado pelo nome ${nome}`})
+        }
+
+        return res.status(200).json(products)
+    }
+
+    /*
+      DESAFIO 02
+          Criar GET /products/stock/available
+          Retornar todos os produtos com estoque maior que 0
+  */
+    async productsStockAvailable(req: Request, res: Response): Promise<Response> {
+        const productRepository = AppDataSource.getRepository(Product)
+
+        const products = await productRepository.find({
+            where: {
+                estoque: MoreThan (0)
+            }
+        })
+
+        if (!products || products.length === 0) {
+            return res.status(404).json({message: `Não encontrado produto com estoque maior que zero.`})
+        }
+
+        return res.status(200).json(products)
+    }
+
+    /*
+      DESAFIO 03
+          Criar GET /products/stock/empty
+          Retornar todos os produtos com estoque igual a 0
+      */
+    async productsStockEmpty(req: Request, res: Response): Promise<Response> {
+        const productRepository = AppDataSource.getRepository(Product)
+
+        const products = await productRepository.find({
+            where: {
+                // estoque: LessThan (1)
+                estoque: 0
+            }
+        })
+
+        if (!products || products.length === 0) {
+            return res.status(404).json({message: `Não encontrado produto com estoque zerado.`})
+        }
+
+        return res.status(200).json(products)
+    }
+
+    /*
+       DESAFIO 04
+           Criar GET /products/filter?min=10&max=100
+           Retornar todos os produtos com preço entre min e max
+   */
+    async productsFilter(req: Request, res: Response): Promise<Response> {
+        const productRepository = AppDataSource.getRepository(Product)
+        const minPrice = Number(req.query.minPrice ?? 0);
+        const maxPrice = Number(req.query.maxPrice ?? 0);
+
+        if (maxPrice == 0) return res.status(400).json({"message": "Campo max é obrigatório"})
+
+        //Se min é maior que max
+        if(minPrice > maxPrice){
+            return res.status(400).json({
+                message: "O valor mínimo não poder ser maior que o valor máximo"
+            })
+        }
+
+        const products = await productRepository.find({
+            where: {
+                preco: Between(minPrice, maxPrice)
+            }
+        })
+
+        if (!products || products.length === 0) {
+            return res.status(404).json({message: `Não encontrado nenhum produto com filtro aplicado.`})
         }
 
         return res.status(200).json(products)
