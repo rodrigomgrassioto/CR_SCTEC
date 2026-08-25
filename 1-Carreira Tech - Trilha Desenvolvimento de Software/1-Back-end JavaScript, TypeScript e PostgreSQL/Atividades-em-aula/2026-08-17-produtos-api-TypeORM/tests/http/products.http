@@ -1,10 +1,9 @@
-### GET request to example server
 POST http://localhost:3000/products
 Content-Type: application/json
 Accept: application/json
 
 {
-  "nome": "Cadeira gamer",
+  "nome": "Cadeira gamer PARA DELETAR",
   "descricao": "Super confortável com espuma D21",
   "preco": 849,
   "estoque": 8
@@ -30,4 +29,20 @@ Accept: application/json
 
 {
   "preco": 0.01
+}
+
+###
+
+DELETE http://localhost:3000/products/7
+Content-Type: application/json
+Accept: application/json
+
+###
+
+POST http://localhost:3000/products/find-by-name
+Content-Type: application/json
+Accept: application/json
+
+{
+"nome": "notebook"
 }
