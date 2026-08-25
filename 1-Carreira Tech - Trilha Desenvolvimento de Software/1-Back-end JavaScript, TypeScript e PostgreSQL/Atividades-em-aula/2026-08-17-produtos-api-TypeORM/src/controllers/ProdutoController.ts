@@ -2,12 +2,23 @@ import {Request, Response} from "express";
 import {AppDataSource} from "../database/data-source";
 import {Product} from "../entities/Product";
 import {Between, ILike, LessThan, Like, MoreThan} from "typeorm";
+import {Category} from "../entities/Category";
 
 export class ProdutoController {
     async create(req: Request, res: Response): Promise<Response> {
 
         const productRepository = AppDataSource.getRepository(Product)
-        const product = productRepository.create(req.body)
+        const categoryRepository = AppDataSource.getRepository(Category)
+
+        const { nome, descricao, preco, estoque, categoryId } = req.body;
+
+        const category = await categoryRepository.findOneBy({
+            id: Number(categoryId)
+        })
+        if (!category) return res.status(404).json({message: "Categoria não encontrada"})
+
+
+        const product = productRepository.create({ nome, descricao, preco, estoque, category })
 
         const savedProduct = await productRepository.save(product);
 
@@ -16,7 +27,11 @@ export class ProdutoController {
 
     async findAll(req: Request, res: Response): Promise<Response> {
         const productRepository = AppDataSource.getRepository(Product)
-        const products = await productRepository.find()
+        const products = await productRepository.find({
+            relations: {
+                category: true
+            }
+        })
 
         return res.status(200).json(products)
     }
@@ -25,7 +40,10 @@ export class ProdutoController {
         const productRepository = AppDataSource.getRepository(Product)
         const id: number = Number(req.params.id)
 
-        const product = await productRepository.findOneBy({id})
+        const product = await productRepository.findOne({
+            where: { id },
+            relations: {category: true}
+        })
         if (!product) {
             return res.status(404).json({message: 'Produto não encontrado'})
         }
@@ -72,7 +90,8 @@ export class ProdutoController {
             where: {
                 // nome: Like(`%${nome}%`) // case sensitive
                 nome: ILike(`%${nome}%`) // não diferencia maiúscula e minúscula
-            }
+            },
+            relations: {category: true}
         })
 
         if (!products || products.length === 0) {
@@ -93,7 +112,8 @@ export class ProdutoController {
         const products = await productRepository.find({
             where: {
                 estoque: MoreThan (0)
-            }
+            },
+            relations: {category: true}
         })
 
         if (!products || products.length === 0) {
@@ -115,7 +135,8 @@ export class ProdutoController {
             where: {
                 // estoque: LessThan (1)
                 estoque: 0
-            }
+            },
+            relations: {category: true}
         })
 
         if (!products || products.length === 0) {
@@ -147,7 +168,8 @@ export class ProdutoController {
         const products = await productRepository.find({
             where: {
                 preco: Between(minPrice, maxPrice)
-            }
+            },
+            relations: {category: true}
         })
 
         if (!products || products.length === 0) {

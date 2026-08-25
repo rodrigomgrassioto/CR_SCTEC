@@ -4,10 +4,11 @@ Content-Type: application/json
 Accept: application/json
 
 {
-  "nome": "Cadeira gamer 3",
-  "descricao": "Super confortável com espuma D21",
+  "nome": "Controle sem fio para xbox series s",
+  "descricao": "Anatômico",
   "preco": 349,
-  "estoque": 90
+  "estoque": 19,
+  "categoryId": 3
 }
 
 ###
@@ -20,7 +21,7 @@ Accept: application/json
 ###
 
 //@no-log
-GET http://localhost:3000/products/2
+GET http://localhost:3000/products/10
 Content-Type: application/json
 Accept: application/json
 
