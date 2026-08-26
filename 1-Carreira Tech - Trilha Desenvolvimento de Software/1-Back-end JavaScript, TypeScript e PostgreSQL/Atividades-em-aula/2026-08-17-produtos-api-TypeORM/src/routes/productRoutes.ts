@@ -1,11 +1,15 @@
 import { Router } from "express";
 import {ProdutoController} from "../controllers/ProdutoController";
+import {validateDto} from "../middlewares/validate";
+import {CreateProductDto} from "../dtos/CreateProductDto";
+import {UpdateProductDto} from "../dtos/UpdateProductDto";
 
 const productRoutes = Router();
 const productController = new ProdutoController();
 
 productRoutes.post(
     '/products',
+    validateDto(CreateProductDto),
     (req, res) => productController.create(req, res)
 )
 productRoutes.get(
@@ -38,6 +42,7 @@ productRoutes.get(
 )
 productRoutes.put(
     '/products/:id',
+    validateDto(UpdateProductDto),
     (req, res) => productController.update(req, res)
 )
 
