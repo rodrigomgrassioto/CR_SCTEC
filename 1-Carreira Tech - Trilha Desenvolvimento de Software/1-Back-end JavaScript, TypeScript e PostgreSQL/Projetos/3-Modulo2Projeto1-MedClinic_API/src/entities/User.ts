@@ -5,18 +5,18 @@ export class User {
   @PrimaryGeneratedColumn('uuid')
   id!: string; // Identificador único gerado automaticamente pelo PostgreSQL
 
-  @Column()
+  @Column({ type: 'varchar' })
   name!: string; // Nome completo do usuário
 
-  @Column({ unique: true })
+  @Column({ type: 'varchar', unique: true })
   email!: string; // Endereço de e-mail único para autenticação
 
-  @Column()
+  @Column({ type: 'varchar' })
   password!: string; // Guardará o hash da senha gerado pelo bcrypt posteriormente
 
   @Column({ type: 'varchar', default: 'ATTENDNT' })
   role!: string; // Valores esperados: 'ADMIN' ou 'ATTENDANT' (padrão é 'ATTENDANT')
 
-  @CreateDateColumn()
+  @CreateDateColumn({ type: 'timestamp' })
   createdAt!: Date; // Timestamp automático para registro de criação
 }
