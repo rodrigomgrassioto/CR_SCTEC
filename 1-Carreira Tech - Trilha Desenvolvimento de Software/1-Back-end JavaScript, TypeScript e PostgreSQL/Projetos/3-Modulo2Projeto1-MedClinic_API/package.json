@@ -8,7 +8,10 @@
     "start": "node --env-file=.env dist/server.js",
     "dev": "tsx watch --env-file=.env src/server.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "migration:generate": "tsx --env-file=.env ./node_modules/typeorm/cli.js migration:generate src/database/migrations/CreateUserTable -d src/database/data-source.ts",
+    "migration:run": "tsx --env-file=.env ./node_modules/typeorm/cli.js migration:run -d src/database/data-source.ts",
+    "migration:revert": "tsx --env-file=.env ./node_modules/typeorm/cli.js migration:revert -d src/database/data-source.ts"
   },
   "dependencies": {
     "bcrypt": "6.0.0",
