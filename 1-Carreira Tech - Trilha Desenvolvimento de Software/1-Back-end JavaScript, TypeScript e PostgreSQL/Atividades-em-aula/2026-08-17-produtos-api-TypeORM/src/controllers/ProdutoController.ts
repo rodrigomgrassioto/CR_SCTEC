@@ -3,6 +3,7 @@ import {AppDataSource} from "../database/data-source";
 import {Product} from "../entities/Product";
 import {Between, ILike, LessThan, Like, MoreThan} from "typeorm";
 import {Category} from "../entities/Category";
+import {AppError} from "../errors/AppError";
 
 export class ProdutoController {
     async create(req: Request, res: Response): Promise<Response> {
@@ -15,7 +16,8 @@ export class ProdutoController {
         const category = await categoryRepository.findOneBy({
             id: Number(categoryId)
         })
-        if (!category) return res.status(404).json({message: "Categoria não encontrada"})
+        // if (!category) return res.status(404).json({message: "Categoria não encontrada"})
+        if (!category) throw new AppError("Categoria não encontrada", 404)
 
 
         const product = productRepository.create({ nome, descricao, preco, estoque, category })
