@@ -1,4 +1,4 @@
-import * as bcrypt from 'bcryptjs';
+import * as bcrypt from 'bcrypt';
 
 /**
  * Gera o hash da senha usando bcrypt com fator de custo 10 (salts)
