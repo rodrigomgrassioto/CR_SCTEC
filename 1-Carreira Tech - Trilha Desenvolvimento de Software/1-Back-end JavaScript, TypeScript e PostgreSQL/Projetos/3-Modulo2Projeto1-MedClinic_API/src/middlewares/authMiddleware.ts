@@ -10,7 +10,8 @@ export const authMiddleware = (
     const authHeader = req.headers.authorization;
     
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
-      return res.status(401).json({ error: "Token de autenticação não fornecido ou inválido" });
+      res.status(401).json({ error: "Token de autenticação não fornecido ou inválido" });
+      return;
     }
 
     const token = authHeader.split(' ')[1];
@@ -20,9 +21,11 @@ export const authMiddleware = (
       req.user = { id: decoded.sub, role: decoded.role };
       next();
     } catch (error) {
-      return res.status(401).json({ error: "Token inválido ou expirado" });
+      res.status(401).json({ error: "Token inválido ou expirado" });
+      return
     }
   } catch (error) {
-    return res.status(500).json({ error: "Erro interno no servidor" });
+    res.status(500).json({ error: "Erro interno no servidor" });
+    return
   }
 }
