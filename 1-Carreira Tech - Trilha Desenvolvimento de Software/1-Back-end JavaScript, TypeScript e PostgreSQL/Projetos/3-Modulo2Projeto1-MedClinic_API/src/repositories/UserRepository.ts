@@ -16,10 +16,8 @@ export const UserRepository = {
    */
   async findByEmail(email: string): Promise<User | null> {
     // Usamos o baseRepository interno para buscar no banco de dados
-    const user = await baseRepository.findOne({
+    return await baseRepository.findOne({
       where: { email }
     });
-
-    return user;
   }
 };
