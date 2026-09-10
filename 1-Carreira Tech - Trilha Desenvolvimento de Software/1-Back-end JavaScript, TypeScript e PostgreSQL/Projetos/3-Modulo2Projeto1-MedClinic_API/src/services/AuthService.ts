@@ -73,7 +73,7 @@ export class AuthService {
 
     // Gera token JWT com id e role do usuário
     const token = generateToken({
-      sub: user.id,
+      id: user.id,
       role: user.role
     });
 
