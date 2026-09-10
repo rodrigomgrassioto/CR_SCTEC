@@ -6,6 +6,8 @@ import * as jwt from 'jsonwebtoken';
  * @returns String com o token gerado
  */
 export function generateToken(payload: { id: string; role: string }): string {
+  // Garantimos que se a variável não estiver no .env, usará '1h' como padrão de segurança
+  const expiresInValue = process.env.JWT_EXPIRES_IN || '1h';
   return jwt.sign(
     {
       sub: payload.id,   // Mapeia o ID para a chave padrão 'sub'
@@ -13,7 +15,7 @@ export function generateToken(payload: { id: string; role: string }): string {
     },
     process.env.JWT_SECRET!, // Usa a chave secreta definida no ambiente
     {
-      expiresIn: process.env.JWT_EXPIRES_IN // Define o tempo de expiração
+      expiresIn: expiresInValue as jwt.SignOptions['expiresIn'] // Força a tipagem aceita pelo pacote
     }
   );
 }
